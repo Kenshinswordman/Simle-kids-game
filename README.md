@@ -1,2 +1,2 @@
-# Simle-kids-game
+# Simple-kids-game
 Safety games
