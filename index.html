@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GAMIT Safety Adventure</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:linear-gradient(#9de4ff,#fff1c7);color:#172033;text-align:center;padding:16px}.game{max-width:760px;margin:auto;background:#fff;border:4px solid #172033;border-radius:22px;padding:18px;box-shadow:0 8px 0 #172033}h1{margin:0;color:#d71920;font-size:clamp(1.8rem,6vw,3rem)}.brand{font-weight:800;margin:2px 0 14px}.info{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;font-weight:700}.pill{background:#fff0f0;border-radius:20px;padding:8px 14px}.world{position:relative;height:300px;margin:18px 0;border:3px solid #172033;border-radius:15px;overflow:hidden;background:linear-gradient(#83d9ff 0 62%,#64bd48 62% 100%)}.cloud{position:absolute;font-size:2rem}.c1{left:8%;top:10%}.c2{right:12%;top:22%}.platform{position:absolute;height:18px;background:#8b5a2b;border:3px solid #513416;border-radius:8px}.p1{left:8%;bottom:60px;width:27%}.p2{left:43%;bottom:125px;width:25%}.p3{right:6%;bottom:60px;width:28%}.flag{position:absolute;right:8%;bottom:78px;font-size:2.4rem}.hero{position:absolute;left:8%;bottom:78px;font-size:3rem;transition:all .7s ease}.hero span{display:block;background:#d71920;color:white;border:3px solid white;border-radius:50%;font:bold 1rem Arial;padding:3px;position:absolute;top:5px;left:17px}.star{position:absolute;font-size:2rem;transition:all .5s ease}.s1{left:28%;bottom:165px}.s2{left:70%;bottom:165px}.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.controls button,button{border:0;border-radius:12px;padding:12px 18px;font:inherit;font-weight:800;cursor:pointer;background:#2563eb;color:#fff;box-shadow:0 4px 0 #163e9e}.controls button:active,button:active{transform:translateY(3px);box-shadow:0 1px 0 #163e9e}#message{min-height:32px;font-weight:800;margin:14px 0}.good{color:#16833b}.tip{font-size:.9rem;color:#5b6575}#restart{display:none;background:#16a34a;box-shadow:0 4px 0 #08752c}
+</style>
+</head>
+<body>
+<main class="game">
+<h1>GAMIT Safety Adventure</h1><div class="brand">Emergency Solution</div>
+<div class="info"><span class="pill">⭐ Stars: <b id="score">0</b>/2</span><span class="pill">Reach the safe flag 🚩</span></div>
+<section class="world" aria-label="A child in a safe platform adventure"><div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="platform p1"></div><div class="platform p2"></div><div class="platform p3"></div><div class="star s1" id="star1">⭐</div><div class="star s2" id="star2">⭐</div><div class="flag">🚩</div><div class="hero" id="hero">🦸<span>G</span></div></section>
+<div class="controls"><button id="move">Move right ➡️</button><button id="jump">Jump ⬆️</button><button id="restart">Play Again</button></div>
+<div id="message" aria-live="polite">Collect both stars and reach the safety flag!</div>
+<p class="tip">GAMIT Emergency Solution • Stop, look, listen, and stay safe.</p>
+</main>
+<script>
+let position=8,score=0,jumping=false;const hero=document.getElementById('hero'),message=document.getElementById('message'),move=document.getElementById('move'),jump=document.getElementById('jump'),restart=document.getElementById('restart');
+function update(){hero.style.left=position+'%';if(position>25)collect('star1');if(position>67)collect('star2');if(position>82&&score===2){message.textContent='🏆 Great job! You reached the safe place!';message.className='good';move.disabled=true;jump.disabled=true;restart.style.display='inline-block'}}
+function collect(id){let s=document.getElementById(id);if(s.style.visibility!=='hidden'){s.style.visibility='hidden';score++;document.getElementById('score').textContent=score;message.textContent='⭐ Safe choice! Keep going!';message.className='good'}}
+move.onclick=()=>{position=Math.min(88,position+10);update()};jump.onclick=()=>{if(jumping)return;jumping=true;hero.style.bottom='190px';setTimeout(()=>{hero.style.bottom='78px';jumping=false},650)};restart.onclick=()=>{position=8;score=0;document.getElementById('score').textContent=0;document.querySelectorAll('.star').forEach(s=>s.style.visibility='visible');message.textContent='Collect both stars and reach the safety flag!';message.className='';move.disabled=false;jump.disabled=false;restart.style.display='none';update()};
+</script>
+</body>
+</html>
